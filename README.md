@@ -7,7 +7,7 @@ Se observa una correlación negativa fuerte entre el Stringency Index y variable
 Las variables contemporáneas parecen estár más asociadas a los cambios en las medidas, ya que las expectativas de las distintas variables muestran coeficientes de correlación más cercanos a cero.
 
 ### Correlación de los indicadores de la EOE con el stringency index
-![](graficos/correlacion_variables_eoe_stringency)
+![](graficos/correlacion_variables_eoe_stringency.png)
 
 ### Evolución del Stringency Index y proporción de respuestas negativas a variables de la EOE
 ![](graficos/stringency_sit_econ.png)
