@@ -1,10 +1,11 @@
-
 # Paquetes ----------------------------------------------------------------
 library(tidyverse)
 library(readxl)
 library(janitor)
 library(lubridate)
 library(scales)
+library(here)
+library(formattable)
 
 
 # Objetos utilitarios -----------------------------------------------------
@@ -94,7 +95,6 @@ negativo_gsi <- eoe_desagregada %>%
       select(-location)
   ) 
 
-
 # Evolución stringency index y situación económica
 (plt_gsi_sit_econ <-  negativo_gsi %>% 
   filter(variable_key %in% c('sit_econ', 'stringency'), date > '2020-01-01') %>% 
@@ -132,26 +132,30 @@ negativo_gsi <- eoe_desagregada %>%
 # Scatter Stringency Index vs Situación económica (colombia RD)
 (plt_gsi_sit_econ_colombia_rd <- internacionales %>% 
   filter(!location == 'Mexico', year == 2020) %>% 
+  mutate(location = recode(location, 'Dominican Republic' = 'República Dominicana')) %>% 
   ggplot(aes(x = ri, y = sit_econ, color = location)) +
   geom_point(size = 3, alpha = 0.6) +
   geom_smooth(method = 'lm', se = FALSE) +
   scale_color_manual(values = c(colores$blue, colores$green)) +
   theme_light() +
   theme(legend.position = 'bottom',
-        panel.grid = element_blank()) +
+        panel.grid = element_blank(),
+        text = element_text(size = 14)) +
   labs(x = 'Stringency Index', y = 'Situación económica', color = NULL))
 
 # Scatter Stringency Index vs expectativas Situación económica (colombia RD)
 (plt_gsi_sit_econ_exp_colombia_rd <- internacionales %>% 
     filter(!location == 'Mexico', year == 2020) %>% 
+    mutate(location = recode(location, 'Dominican Republic' = 'República Dominicana')) %>% 
     ggplot(aes(x = ri, y = sit_econ_exp, color = location)) +
     geom_point(size = 3, alpha = 0.6) +
     geom_smooth(method = 'lm', se = FALSE) +
     scale_color_manual(values = c(colores$blue, colores$green)) +
     theme_light() +
     theme(legend.position = 'bottom',
-          panel.grid = element_blank()) +
-    labs(x = 'Stringency Index', y = 'Expectativas situación económica', color = NULL))
+          panel.grid = element_blank(),
+          text = element_text(size = 14)) +
+    labs(x = 'Stringency Index', y = 'Expectativas sit. económica', color = NULL))
 
 
 # Correlaciones -----------------------------------------------------------
@@ -169,6 +173,7 @@ gri_month %>%
     everything(),
     names_to = 'variable_key',
     values_to = 'correlacion') %>% 
+  mutate(correlacion = round(correlacion, 3)) %>% 
   arrange(correlacion) %>% 
   left_join(
     count(eoe_desagregada, variable, variable_key) %>% 
@@ -204,11 +209,11 @@ ggsave(
 ggsave(
   filename = "graficos/stringency_sit_econ_colombia_rd.png",
   plot = plt_gsi_sit_econ_colombia_rd, dpi = 350,
-  width = 7, height = 4.5
+  width = 5, height = 3.8
 )
 
 ggsave(
   filename = "graficos/stringency_sit_econ_exp_colombia_rd.png",
   plot = plt_gsi_sit_econ_exp_colombia_rd, dpi = 350,
-  width = 7, height = 4.5
+  width = 5, height = 3.8
 )

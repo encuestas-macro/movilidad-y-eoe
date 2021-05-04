@@ -1,0 +1,17 @@
+---
+title: "Restricciones de mobilidad y expectativas del sector industrial"
+date: 'Abril 2021'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+Para controlar la propagación del COVID-19, los países de vieron obligados a adoptar medidas con objetivos sanitarios que afectaron de manera directa los resultados macroeconómicos y el desempeño individual de los distintos sectores de la economía.
+
+Dentro de las medidas adoptadas, las dirigidas a restringir la movilidad de las personas han sido una constantes, entre ellas, los toques de queda, el cierre de escuelas, la interrupción de flujos migratorios con el cierre de puertos y aeropuertos, la limitación de eventos de asistencia masiva, y otras.
+
+
+
+Estas medidas han 
